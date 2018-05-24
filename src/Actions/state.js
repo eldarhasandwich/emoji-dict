@@ -1,7 +1,7 @@
 
-export function exampleAction (example) {
+export function setSelectedID (selectedID) {
     return {
-        type: "EXAMPLE_ACTION",
-        example
+        type: "SET_SELECTED_ID",
+        selectedID
     }
 }
