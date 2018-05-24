@@ -17,14 +17,12 @@ class EmojiList extends Component {
         let keys = this.getEmojiKeys()
         if (!q || q === "" || keys === []) { return [] }
 
-
-        //I cant be bothered doing regexps right now
-
-        // let list = this.props.state.list
-        // keys = keys.filter(item => {
-        //     let 
-        // })
-
+        let l = this.props.state.list
+        keys = keys.filter(item => {
+            let target = l[item].name.toUpperCase() 
+            let query = q.toUpperCase()
+            return target.search(query) >= 0
+        })
 
         return keys
     }
