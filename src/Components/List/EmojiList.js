@@ -6,6 +6,7 @@ import {  } from '@material-ui/core';
 class EmojiList extends Component {
 
     getEmojiKeys = () => {
+        if (!this.props.state.list) { return [] }
         return Object.keys(this.props.state.list)
     }
 

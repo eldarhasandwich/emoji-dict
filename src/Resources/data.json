@@ -1,0 +1,16 @@
+{
+    "list": {
+        "a": {
+            "name": "smileyA"
+        },
+        "b": {
+            "name": "smileyB"
+        },
+        "c": {
+            "name": "smileyC"
+        },
+        "d": {
+            "name": "smileyD"
+        }
+    }
+}

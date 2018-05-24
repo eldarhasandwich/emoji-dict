@@ -5,7 +5,14 @@ import { AppBar, Toolbar, Grid, Paper } from '@material-ui/core';
 import EmojiList from '../List/EmojiList';
 import EmojiInfo from '../Information/EmojiInfo';
 
+import * as StateActions from '../../Actions/state'
+
 class App extends Component {
+
+    componentWillMount() {
+        this.props.pullEmojis()
+    }
+
     render() {
         return (
             <div className="App">
@@ -39,7 +46,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {
+        pullEmojis: () => dispatch(StateActions.pullEmojiData())
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

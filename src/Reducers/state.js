@@ -1,24 +1,20 @@
+const data = require('../Resources/data')
+
 const defaultState = {
     selected_id: null,
     search_query: null,
-    list: {
-        a: {
-            name: "smileyA"
-        },
-        b: {
-            name: "smileyB"
-        },
-        c: {
-            name: "smileyC"
-        },
-        d: {
-            name: "smileyD"
-        }
-    }
+    list: null
 }
 
 const state = (state = defaultState, action) => {
     switch (action.type) {
+        case 'PULL_EMOJI_DATA': {
+            return {
+                ...state,
+                list: data.list
+            }
+        }
+
         case 'SET_SELECTED_ID': {
             return {
                 ...state,
