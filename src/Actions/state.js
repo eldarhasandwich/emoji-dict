@@ -11,3 +11,10 @@ export function setSelectedID (selectedID) {
         selectedID
     }
 }
+
+export function setSearchQuery (searchQuery) {
+    return {
+        type: "SET_SEARCH_QUERY",
+        searchQuery
+    }
+}

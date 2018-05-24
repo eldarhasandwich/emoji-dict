@@ -38,7 +38,8 @@ class EmojiListItem extends Component {
             padding:"4px",
             backgroundColor: (this.state.isHovering) ? "lightblue": "white",
             transition:"0.2s",
-            cursor:"pointer"
+            cursor:"pointer",
+            overflow:"auto"
         }
     }
 
@@ -52,8 +53,12 @@ class EmojiListItem extends Component {
                         onMouseEnter={this.setIsHoveringTrue}
                         onMouseLeave={this.setIsHoveringFalse}
                     >
-
-                        {this.getItemInfo().name}
+                        <p style={{float:"left", marginLeft:"10px"}}>
+                            {this.getItemInfo().emoji}
+                        </p>
+                        <p style={{float:"right", marginRight:"10px"}}>
+                            {this.getItemInfo().name}
+                        </p>
 
                     </Paper>
             

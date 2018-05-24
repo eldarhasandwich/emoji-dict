@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import EmojiListItem from './EmojiListItem';
-import {  } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+
+import * as StateActions from '../../Actions/state'
 
 class EmojiList extends Component {
 
@@ -11,15 +13,45 @@ class EmojiList extends Component {
     }
 
     getFilteredEmojiKeys = () => {
-        return this.getEmojiKeys()
+        let q = this.props.state.search_query
+        let keys = this.getEmojiKeys()
+        if (!q || q === "" || keys === []) { return [] }
+
+
+        //I cant be bothered doing regexps right now
+
+        // let list = this.props.state.list
+        // keys = keys.filter(item => {
+        //     let 
+        // })
+
+
+        return keys
+    }
+
+    onSearchFieldChange = (newValue) => {
+        // console.log(newValue.target.value)
+        this.props.setSearchQuery(newValue.target.value)
+    }
+
+    searchbarStyle = {
+        marginBottom: "10px"
     }
 
     render() {
         return (
             <div className="EmojiList">
 
+                <TextField
+                    label="Search"
+                    fullWidth
+                    style={this.searchbarStyle}
+                    // multiline
+                    onChange={this.onSearchFieldChange}
+                />
+
                 {
-                    this.getFilteredEmojiKeys().map(item => 
+                    this.getFilteredEmojiKeys().map(item => // if there are items to display
                         <EmojiListItem
                             key={item}
                             item={item}
@@ -37,7 +69,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {
+        setSearchQuery: newQ => dispatch(StateActions.setSearchQuery(newQ))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmojiList)

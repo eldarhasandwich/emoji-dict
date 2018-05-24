@@ -32,7 +32,9 @@ class ThisEmoji extends Component {
         return (
             <div>
 
-                {this.props.item.name}
+                <h1 style={{textAlign:"left"}}>
+                    {this.props.item.emoji} {this.props.item.name}
+                </h1>
 
             </div>
         )

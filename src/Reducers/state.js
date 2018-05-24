@@ -22,6 +22,13 @@ const state = (state = defaultState, action) => {
             }
         }
 
+        case 'SET_SEARCH_QUERY': {
+            return {
+                ...state,
+                search_query: action.searchQuery
+            }
+        }
+
         default: {
             return state
         }
