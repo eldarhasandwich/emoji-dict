@@ -24,7 +24,7 @@ class EmojiList extends Component {
             return target.search(query) >= 0
         })
 
-        return keys
+        return keys.slice(0, 100)
     }
 
     onSearchFieldChange = (newValue) => {

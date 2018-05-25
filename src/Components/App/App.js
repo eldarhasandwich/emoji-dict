@@ -9,9 +9,25 @@ import * as StateActions from '../../Actions/state'
 
 class App extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            width: window.innerWidth
+        }
+    }
+
     componentWillMount() {
         this.props.pullEmojis()
+        window.addEventListener('resize', this.handleWindowSizeChange);
     }
+      
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowSizeChange);
+    }
+      
+    handleWindowSizeChange = () => {
+        this.setState({ width: window.innerWidth });
+    };
 
     render() {
         return (
@@ -26,13 +42,21 @@ class App extends Component {
 
                 <Grid container spacing={24} style={{width:"98%", margin:"auto"}}>
 
-                    <Grid item xs={12} sm={3}>
-                        <EmojiList/>
-                    </Grid>
+                    {
+                        this.state.width < 600 && this.props.state.selected_id
+                            ?   null
+                            :   <Grid item xs={12} sm={3}>
+                                    <EmojiList/>
+                                </Grid>
+                    }
 
-                    <Grid item xs={12} sm={9}>
-                        <EmojiInfo/>
-                    </Grid>
+                    {
+                        this.state.width < 600 && !this.props.state.selected_id
+                            ?   null
+                            :   <Grid item xs={12} sm={9}>
+                                    <EmojiInfo/>
+                                </Grid>
+                    }
 
                 </Grid>
             
@@ -42,7 +66,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-    return {}
+    return {state: state.state}
 }
 
 const mapDispatchToProps = dispatch => {
