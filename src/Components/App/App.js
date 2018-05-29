@@ -1,23 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import './App.css';
-import { AppBar, Toolbar, Grid, Paper } from '@material-ui/core';
+import { AppBar, Toolbar, Grid } from '@material-ui/core';
 import EmojiList from '../List/EmojiList';
 import EmojiInfo from '../Information/EmojiInfo';
 
 import * as StateActions from '../../Actions/state'
+import * as ResponsiveActions from '../../Actions/responsive'
 
 class App extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            width: window.innerWidth
-        }
-    }
-
     componentWillMount() {
         this.props.pullEmojis()
+        this.props.resizeWindow(window.innerWidth, window.innerHeight)
         window.addEventListener('resize', this.handleWindowSizeChange);
     }
       
@@ -26,7 +21,7 @@ class App extends Component {
     }
       
     handleWindowSizeChange = () => {
-        this.setState({ width: window.innerWidth });
+        this.props.resizeWindow(window.innerWidth, window.innerHeight)
     };
 
     render() {
@@ -43,19 +38,19 @@ class App extends Component {
                 <Grid container spacing={24} style={{width:"98%", margin:"auto"}}>
 
                     {
-                        this.state.width < 600 && this.props.state.selected_id
-                            ?   null
-                            :   <Grid item xs={12} sm={3}>
+                        !this.props.state.selected_id || this.props.responsive.windowWidth > 600
+                            ?   <Grid item xs={12} sm={6} md={5} lg={3}>
                                     <EmojiList/>
                                 </Grid>
+                            :   null
                     }
 
                     {
-                        this.state.width < 600 && !this.props.state.selected_id
-                            ?   null
-                            :   <Grid item xs={12} sm={9}>
+                        this.props.state.selected_id || this.props.responsive.windowWidth > 600
+                            ?   <Grid item xs={12} sm={6} md={7} lg={9}>
                                     <EmojiInfo/>
                                 </Grid>
+                            :   null
                     }
 
                 </Grid>
@@ -66,12 +61,13 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-    return {state: state.state}
+    return {state: state.state, responsive: state.responsive}
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullEmojis: () => dispatch(StateActions.pullEmojiData())
+        pullEmojis: () => dispatch(StateActions.pullEmojiData()),
+        resizeWindow: (newWidth, newHeight) => dispatch(ResponsiveActions.resizeWindow(newWidth, newHeight))
     }
 }
 

@@ -1,11 +1,12 @@
 {
-  "homepage": "http://eldarhasandwich.github.io/emoji-app",
-  "name": "emoji-app",
+  "homepage": "http://eldarhasandwich.github.io/emoji-dict",
+  "name": "emoji-dict",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^1.0.0",
     "bootstrap": "^4.1.1",
+    "gh-pages": "^1.1.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",

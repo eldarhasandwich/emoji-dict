@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {Button} from '@material-ui/core';
+import {Button, Grid} from '@material-ui/core';
 // import {  } from '@material-ui/core';
 
 import * as StateActions from '../../Actions/state'
+import EmojiPlatformViewer from './EmojiPlatformViewer';
 
 class EmojiInfo extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            width: window.innerWidth
-        }
-    }
+    // constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //         width: window.innerWidth
+    //     }
+    // }
 
     getSelectedEmoji = () => {
         if (!this.props.state.selected_id) {
@@ -31,17 +32,17 @@ class EmojiInfo extends Component {
             .setSelectedID(null)
     }
 
-    componentWillMount() {
-        window.addEventListener('resize', this.handleWindowSizeChange);
-    }
+    // componentWillMount() {
+    //     window.addEventListener('resize', this.handleWindowSizeChange);
+    // }
       
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowSizeChange);
-    }
+    // componentWillUnmount() {
+    //     window.removeEventListener('resize', this.handleWindowSizeChange);
+    // }
       
-    handleWindowSizeChange = () => {
-        this.setState({ width: window.innerWidth });
-    };
+    // handleWindowSizeChange = () => {
+    //     this.setState({ width: window.innerWidth });
+    // };
 
     render() {
         return (
@@ -52,7 +53,7 @@ class EmojiInfo extends Component {
                         ? <ThisEmoji 
                             item={this.getSelectedEmoji()} 
                             deselectEmoji={this.deselectEmoji}
-                            windowWidth={this.state.width}/>
+                            windowWidth={this.props.responsive.windowWidth}/>
                         : "Nothing Selected"
                 }
 
@@ -64,7 +65,7 @@ class EmojiInfo extends Component {
 class ThisEmoji extends Component {
     render() {
         return (
-            <div>
+            <div className="EmojiInfo">
                 {
                     (this.props.windowWidth < 600)
                         ?   <div style={{
@@ -90,13 +91,22 @@ class ThisEmoji extends Component {
                     {this.props.item.name}
                 </h1>
 
+                <Grid container spacing={24}>
+                    <Grid item xs={12} sm={6}>
+                        <EmojiPlatformViewer/>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <EmojiPlatformViewer/>
+                    </Grid>
+                </Grid>
+
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    return {state: state.state}
+    return {state: state.state, responsive: state.responsive}
 }
 
 const mapDispatchToProps = dispatch => {
